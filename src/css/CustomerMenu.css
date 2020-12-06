@@ -1,0 +1,90 @@
+.root {
+    display: flex;
+}
+
+.loading {
+    width: 100vh;
+    height: 100vh;
+    align-items: center;
+    display: flex;
+}
+
+.logo {
+    height: 5vh;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.sider {
+    height: 100vh;
+    position: fixed;
+}
+
+.menu {
+    height: 100%;
+}
+
+.header {
+    width: 100%;
+    background: white;
+    height: 5vh;
+    display: flex;
+    justify-content: right;
+    text-align: right;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: fixed;
+    z-index: 1;
+}
+
+.icon-head {
+    font-size: 15px;
+    color: #0000FF;
+    margin-left: 5px;
+}
+
+.button-head {
+    width: 15%;
+    float: right;
+}
+
+.crumb {
+    width: 85%;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.content {
+    margin-top: 5vh;
+}
+
+.route {
+    height: 100%;
+    margin: 10px;
+    background: white;
+}
+
+
+.content_route {
+
+}
+
+
+.layout {
+    margin-left: 180px;
+}
+
+.footer {
+    text-align: center;
+}
+
+
+.title {
+
+}
+
+

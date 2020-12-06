@@ -1,9 +1,8 @@
 import axios from 'axios'
 import {message} from 'antd';
-
 axios.defaults.timeout = 10000;
 axios.defaults.baseURL = "https://www.hrn.net.cn/api";
-
+global.authorization = ""
 /**
  * http request 拦截器
  */
@@ -12,6 +11,7 @@ axios.interceptors.request.use(
         config.data = JSON.stringify(config.data);
         config.headers = {
             "Content-Type": "application/json",
+            "authorization" :  global.authorization
         };
         return config;
     },
@@ -24,9 +24,22 @@ axios.interceptors.response.use(
     data => {
         let res = data.data
         if (res.msgCode === '0') {
+            if(data.config.url === '/login/login'){
+                global.authorization = res.returnContent.token;
+            }
             return Promise.resolve(res.returnContent);
+        } else if (res.msgCode === 'E90001' || res.msgCode === 'ERROR_CODE_90002'){
+            //登录已失效 用户未登录
+            message.info(res.msgValue)
+            this.props.history.replace('Login')
+            return Promise.reject(res.msgCode);
+        } else if (res.msgCode === 'E90003'){
+            //权限不足
+            message.info(res.msgValue)
+            return Promise.reject(res.msgCode);
         } else {
             message.info(res.msgValue)
+            return Promise.reject(res.msgCode);
         }
     },
     err => {
@@ -75,9 +88,9 @@ export function post(url, data) {
 }
 
 //统一接口处理，返回数据
-export default function http(fecth, url, param) {
+export default function http(type, url, param) {
     return new Promise((resolve, reject) => {
-        switch (fecth) {
+        switch (type) {
             case "get":
                 console.log("begin a get request,and url:", url);
                 get(url, param)

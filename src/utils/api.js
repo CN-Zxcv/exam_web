@@ -1,7 +1,7 @@
 import http from "./server"
 
 /**
- * 获取首页列表
+ * 登录
  */
 function login(param){
     return new Promise((resolve, reject) => {
@@ -13,6 +13,34 @@ function login(param){
     })
 }
 
+/**
+ * 获取首页列表
+ */
+function getMenus(param){
+    return new Promise((resolve, reject) => {
+        http("post",'/common/menu', param).then(res => {
+            resolve (res);
+        },error => {
+            reject(error)
+        })
+    })
+}
+
+/**
+ * 获取首页列表
+ */
+function getCustomers(param){
+    return new Promise((resolve, reject) => {
+        http("post",'/common/customerlist', param).then(res => {
+            resolve (res);
+        },error => {
+            reject(error)
+        })
+    })
+}
+
 export {
-    login
+    login,
+    getMenus,
+    getCustomers
 }
