@@ -16,6 +16,7 @@
     justify-content: left;
     align-items: center;
     padding-left: 10px;
+    transition: all 0.2s linear 0s;
 }
 
 .sider {
@@ -75,7 +76,7 @@
 
 
 .layout {
-    margin-left: 180px;
+    transition: all 0.2s linear 0s;
 }
 
 .footer {

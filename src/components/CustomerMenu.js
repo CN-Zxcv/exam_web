@@ -185,7 +185,7 @@ export class CustomerMenu extends Component {
                         </div>
                         {this.menuList(menuList)}
                     </Sider>
-                    <Layout style={{marginLeft: collapsed? 80 :180,transitionProperty: "marginLeft", transitionDuration : 3}}>
+                    <Layout className="layout" style={{marginLeft: collapsed? 80 :180}}>
                         <div className="header">
                             <div className="crumb"><Icon type={current_icon ? current_icon : "home" }/> {current_name}</div>
                             <div className="button-head">
