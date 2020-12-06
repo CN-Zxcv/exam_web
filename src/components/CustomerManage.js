@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {getCustomers} from "../utils/api";
-import {List} from "antd";
+import {List, Spin} from "antd";
 
 export default class CustomerManage extends Component{
 
@@ -26,16 +26,18 @@ export default class CustomerManage extends Component{
     }
 
     render() {
-        const {customerList} = this.state;
+        const {loading, customerList} = this.state;
         return (
-            <List
-                size="large"
-                header={<div>Header</div>}
-                footer={<div>Footer</div>}
-                bordered
-                dataSource={customerList}
-                renderItem={item => <List.Item>{item.name}</List.Item>}
-            />
+            <Spin spinning = {loading} size="large" tip="Loading...">
+                <List
+                    size="large"
+                    header={<div>Header</div>}
+                    footer={<div>Footer</div>}
+                    bordered
+                    dataSource={customerList}
+                    renderItem={item => <List.Item>{item.name}</List.Item>}
+                />
+            </Spin>
         );
     }
 }
