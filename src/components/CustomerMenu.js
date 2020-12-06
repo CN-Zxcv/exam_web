@@ -177,10 +177,9 @@ export class CustomerMenu extends Component {
                             color: 'rgba(255,255,255,1)',
                             display: this.state.collapsed ? 'none' : 'block'
                         }}/>
-                            <span style={{
-                                color: "#ffffff",
+                            <span className="logo-text" style={{
                                 fontSize: this.state.collapsed ? 10 : 15,
-                                marginLeft: 5
+                                marginLeft:  this.state.collapsed ? -5 : 5
                             }}>平煤考试系统</span>
                         </div>
                         {this.menuList(menuList)}

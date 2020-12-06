@@ -19,6 +19,12 @@
     transition: all 0.2s linear 0s;
 }
 
+.logo-text {
+    color: #ffffff;
+    transition: all 0.2s linear 0s;
+}
+
+
 .sider {
     height: 100vh;
     position: fixed;
