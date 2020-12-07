@@ -2,12 +2,12 @@ import React, {Component} from "react";
 import '../css/CustomerMenu.css';
 import {getMenus} from "../utils/api";
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
-import {Layout, Menu, Spin, Breadcrumb, Icon, Dropdown, message} from 'antd';
+import {Layout, Menu, Spin, Icon, Dropdown, message} from 'antd';
 import CustomerManage from "./CustomerManage";
 import PaperManage from "./PaperManage";
 
 const { SubMenu } = Menu;
-const {Header, Content, Footer, Sider} = Layout;
+const {Content, Footer, Sider} = Layout;
 const menu = (
     <Menu onClick={handleUserMenuClick}>
         <Menu.Item key="1">
@@ -184,27 +184,23 @@ export class CustomerMenu extends Component {
                         </div>
                         {this.menuList(menuList)}
                     </Sider>
-                    <Layout className="layout" style={{marginLeft: collapsed? 80 :180}}>
+                    <div className="layout" style={{marginLeft: collapsed? 80 :180}}>
                         <div className="header">
                             <div className="crumb"><Icon type={current_icon ? current_icon : "home" }/> {current_name}</div>
-                            <div className="button-head">
-                                <Dropdown.Button overlay={menu} icon={<Icon type="user"/>}
-                                                 onClick={this.handleUserClick}>
-                                    {global.name}
-                                </Dropdown.Button>
-                            </div>
+                            <Dropdown.Button overlay={menu} icon={<Icon type="user"/>}
+                                             onClick={this.handleUserClick}>
+                                {global.name}
+                            </Dropdown.Button>
                         </div>
 
-                        <Content className="content">
+                        <div className="content">
 
-                            <div className="route">
-                                <Route exact key="1" path="/CustomerManage" component={CustomerManage}/>
-                                <Route exact key="2" path="/PaperManage" component={PaperManage}/>
-                            </div>
+                            <Route exact key="1" path="/CustomerManage" component={CustomerManage}/>
+                            <Route exact key="2" path="/PaperManage" component={PaperManage}/>
 
-                        </Content>
-                        <Footer className="footer">EXAM ©2020 Created by HRN</Footer>
-                    </Layout>
+                        </div>
+                        <div className="footer">EXAM ©2020 Created by HRN</div>
+                    </div>
                 </Layout>
             </Router>
         }

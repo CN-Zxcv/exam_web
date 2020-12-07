@@ -37,7 +37,7 @@
 .header {
     width: 100%;
     background: white;
-    height: 5vh;
+    height: 50px;
     display: flex;
     justify-content: right;
     text-align: right;
@@ -55,18 +55,19 @@
 }
 
 .button-head {
-    width: 15%;
-    float: right;
+
 }
 
 .crumb {
-    width: 85%;
+    width: 80%;
     text-align: left;
     padding-left: 10px;
 }
 
 .content {
-    margin-top: 5vh;
+    margin-top: 53px;
+    height: 100%;
+    width: 100%;
 }
 
 .route {
@@ -83,10 +84,14 @@
 
 .layout {
     transition: all 0.2s linear 0s;
+    width: 100%;
+    height: 100%;
 }
 
 .footer {
     text-align: center;
+    height: 5%;
+    z-index: 2;
 }
 
 

@@ -25,19 +25,24 @@ export default class CustomerManage extends Component{
 
     }
 
+    getItem = (item, index) => {
+        return <li className="customer-item">
+            {index + 1 + "、" +item.name}
+        </li>
+
+    }
+
     render() {
         const {loading, customerList} = this.state;
-        return (
-            <Spin spinning = {loading} size="large" tip="Loading...">
-                <List
-                    size="large"
-                    header={<div>Header</div>}
-                    footer={<div>Footer</div>}
-                    bordered
-                    dataSource={customerList}
-                    renderItem={item => <List.Item>{item.name}</List.Item>}
-                />
-            </Spin>
-        );
+        if(loading){
+            return <Spin className="spin" spinning = {loading} size="large" tip="Loading..."/>
+        } else {
+            return <ul >
+                {customerList.map((item,index) => {
+                    this.getItem(item,index)
+                })}
+            </ul>
+
+        }
     }
 }

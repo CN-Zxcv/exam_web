@@ -3,6 +3,7 @@ import {Input, Button, Icon} from 'antd';
 import '../css/Login.css';
 import logo from "../res/logo.svg";
 import {login} from "../utils/api";
+import cookie from 'react-cookies'
 
 class Login extends Component {
 

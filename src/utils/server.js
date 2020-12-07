@@ -1,17 +1,19 @@
 import axios from 'axios'
 import {message} from 'antd';
+import cookie from 'react-cookies'
 axios.defaults.timeout = 10000;
 axios.defaults.baseURL = "https://www.hrn.net.cn/api";
-global.authorization = ""
+const authorization = cookie.load("authorization")
 /**
  * http request 拦截器
  */
 axios.interceptors.request.use(
+
     config => {
         config.data = JSON.stringify(config.data);
         config.headers = {
             "Content-Type": "application/json",
-            "authorization" :  global.authorization
+            "authorization" :  authorization ? authorization : ""
         };
         return config;
     },
@@ -25,7 +27,8 @@ axios.interceptors.response.use(
         let res = data.data
         if (res.msgCode === '0') {
             if(data.config.url === '/login/login'){
-                global.authorization = res.returnContent.token;
+                let inFifteenMinutes = new Date(new Date().getTime() + 24 * 3600 * 1000);//一天
+                cookie.save("authorization", res.returnContent.token,{ expires: inFifteenMinutes });
             }
             return Promise.resolve(res.returnContent);
         } else if (res.msgCode === 'E90001' || res.msgCode === 'ERROR_CODE_90002'){

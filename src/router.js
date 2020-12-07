@@ -15,6 +15,8 @@ export default class AppRoute extends React.Component{
                 <Switch>
                     <Route exact path="/" component={Login}/>
                     <Route exact path="/CustomerMenu" component={CustomerMenu} />
+                    <Route exact path="/CustomerManage" component={CustomerMenu}/>
+                    <Route exact path="/PaperManage" component={CustomerMenu}/>
                 </Switch>
             </Router>
         )
