@@ -13,13 +13,16 @@ export default class CustomerManage extends Component {
 
     componentDidMount() {
         document.title = '员工管理'
-        getCustomers({employCode: global.employCode, status: -2}).then(
+        getCustomers({status: -2}).then(
             (res) => {
                 console.log(res)
                 this.setState({loading: false, customerList: res})
             },
-            () => {
+            (error) => {
                 this.setState({loading: false})
+                if(error === 'E90001'){
+                    this.props.history.replace('/')
+                }
             }
         );
 

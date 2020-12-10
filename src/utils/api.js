@@ -39,8 +39,22 @@ function getCustomers(param){
     })
 }
 
+/**
+ * 发送推送消息
+ */
+function sendMsg(param){
+    return new Promise((resolve, reject) => {
+        http("post",'/common/sendmsg', param).then(res => {
+            resolve (res);
+        },error => {
+            reject(error)
+        })
+    })
+}
+
 export {
     login,
     getMenus,
-    getCustomers
+    getCustomers,
+    sendMsg
 }

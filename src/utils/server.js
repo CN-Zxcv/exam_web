@@ -31,8 +31,7 @@ axios.interceptors.response.use(
             return Promise.resolve(res.returnContent);
         } else if (res.msgCode === 'E90001' || res.msgCode === 'ERROR_CODE_90002'){
             //登录已失效 用户未登录
-            message.info(res.msgValue)
-            this.props.history.replace('Login')
+            message.info('E90001')
             return Promise.reject(res.msgCode);
         } else if (res.msgCode === 'E90003'){
             //权限不足

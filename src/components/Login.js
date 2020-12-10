@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Input, Button, Icon} from 'antd';
+import {Input, Button, Icon, message} from 'antd';
 import '../css/Login.css';
 import logo from "../res/logo.svg";
 import {login} from "../utils/api";
@@ -34,10 +34,13 @@ class Login extends Component {
                 let inFifteenMinutes = new Date(new Date().getTime() + 2 * 3600 * 1000);//2小时
                 cookie.save("name", res.name, { expires: inFifteenMinutes });
                 cookie.save("employCode", res.employCode, { expires: inFifteenMinutes });
-                setTimeout(() => {
-                    this.setState({loading: false})
-                    this.props.history.replace('CustomerMenu')
-                },400)
+                this.setState({loading: false})
+                message.info("登录成功")
+                this.props.history.replace('CustomerMenu')
+                // setTimeout(() => {
+                //     this.setState({loading: false})
+                //     this.props.history.replace('CustomerMenu')
+                // },400)
             },
             () => {
                 this.setState({loading: false})

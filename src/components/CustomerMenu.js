@@ -7,6 +7,7 @@ import CustomerManage from "./CustomerManage";
 import PaperManage from "./PaperManage";
 import NotFound from "./NotFound";
 import cookie from "react-cookies";
+import {SendMsg} from "./SendMsg";
 
 const { SubMenu } = Menu;
 const {Content, Footer, Sider} = Layout;
@@ -79,8 +80,11 @@ export class CustomerMenu extends Component {
                 }
                 this.setState({loading: false, menuList: res})
             },
-            () => {
+            (error) => {
                 this.setState({loading: false})
+                if(error === 'E90001'){
+                    this.props.history.replace('/')
+                }
             }
         );
     }
@@ -208,6 +212,7 @@ export class CustomerMenu extends Component {
                             <Switch>
                                 <Route exact key="1" path="/CustomerManage" component={CustomerManage}/>
                                 <Route exact key="2" path="/PaperManage" component={PaperManage}/>
+                                <Route exact key="3" path="/SendMsg" component={SendMsg}/>
                                 <Route path="/*" component={NotFound}/>
                             </Switch>
                         </div>
