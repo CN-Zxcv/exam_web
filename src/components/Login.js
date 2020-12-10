@@ -30,11 +30,14 @@ class Login extends Component {
         login({employCode, passWord}).then(
             (res) => {
                 console.log(res)
-                this.setState({loading: false})
+
                 let inFifteenMinutes = new Date(new Date().getTime() + 2 * 3600 * 1000);//2小时
                 cookie.save("name", res.name, { expires: inFifteenMinutes });
                 cookie.save("employCode", res.employCode, { expires: inFifteenMinutes });
-                this.props.history.replace('CustomerMenu')
+                setTimeout(() => {
+                    this.setState({loading: false})
+                    this.props.history.replace('CustomerMenu')
+                },400)
             },
             () => {
                 this.setState({loading: false})

@@ -8,33 +8,8 @@ import PaperManage from "./PaperManage";
 import NotFound from "./NotFound";
 import cookie from "react-cookies";
 
-const name = cookie.load("name")
-const employCode = cookie.load("employCode")
 const { SubMenu } = Menu;
 const {Content, Footer, Sider} = Layout;
-const menu = (
-    <Menu onClick={handleUserMenuClick}>
-        <Menu.Item key="1">
-            <Icon type="unlock"/>
-            修改密码
-        </Menu.Item>
-        <Menu.Item key="2">
-            <Icon type="export"/>
-            退出登录
-        </Menu.Item>
-    </Menu>
-);
-
-function handleUserMenuClick(e) {
-    if (e.key === "1") {
-        message.info("修改密码");
-    } else {
-        message.info("退出登录");
-    }
-
-    console.log('click', e);
-}
-
 export class CustomerMenu extends Component {
 
     constructor(props) {
@@ -49,6 +24,35 @@ export class CustomerMenu extends Component {
             current_name: 'home',
             collapsed: false,
         };
+    }
+
+    getMenu = () =>{
+        return(
+            <Menu onClick={this.handleUserMenuClick}>
+                <Menu.Item key="1">
+                    <Icon type="unlock"/>
+                    修改密码
+                </Menu.Item>
+                <Menu.Item key="2">
+                    <Icon type="export"/>
+                    退出登录
+                </Menu.Item>
+            </Menu>
+        );
+    }
+
+    handleUserMenuClick = (e) => {
+        if (e.key === "1") {
+            message.info("修改密码");
+        } else {
+            message.info("退出登录");
+            cookie.remove("name");
+            cookie.remove("employCode");
+            cookie.remove("authorization");
+            this.props.history.replace('/')
+        }
+
+        console.log('click', e);
     }
 
     componentDidMount() {
@@ -193,9 +197,9 @@ export class CustomerMenu extends Component {
                         <div className="header">
                             <div className="crumb"><Icon type={current_icon ? current_icon : "home" }/> {current_name}</div>
                             <div className="button-head">
-                                <Dropdown.Button overlay={menu} icon={<Icon type="user"/>}
+                                <Dropdown.Button overlay={this.getMenu} icon={<Icon type="user"/>}
                                                  onClick={this.handleUserClick}>
-                                    {name}
+                                    {cookie.load("name")}
                                 </Dropdown.Button>
                             </div>
                         </div>

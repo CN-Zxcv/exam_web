@@ -11,10 +11,10 @@ export default class CustomerManage extends Component{
     }
 
     componentDidMount() {
-        document.title = '页面不存在'
+        document.title = '页面开发中'
     }
 
     render() {
-        return <Empty style={{marginTop : 200}} image={Empty.PRESENTED_IMAGE_SIMPLE} description= "404 页面不存在" />
+        return <Empty style={{marginTop : 200}} image={Empty.PRESENTED_IMAGE_SIMPLE} description= "404 页面开发中" />
     }
 }

@@ -3,17 +3,15 @@ import {message} from 'antd';
 import cookie from 'react-cookies'
 axios.defaults.timeout = 10000;
 axios.defaults.baseURL = "https://www.hrn.net.cn/api";
-const authorization = cookie.load("authorization")
 /**
  * http request 拦截器
  */
 axios.interceptors.request.use(
-
     config => {
         config.data = JSON.stringify(config.data);
         config.headers = {
             "Content-Type": "application/json",
-            "authorization" :  authorization ? authorization : ""
+            "authorization" :  cookie.load("authorization")
         };
         return config;
     },
