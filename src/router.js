@@ -4,7 +4,7 @@ import { createBrowserHistory } from "history";
 import Login from "./components/Login";
 import {CustomerMenu} from "./components/CustomerMenu";
 import CustomerManage from "./components/CustomerManage";
-import PaperManage from "./components/PaperManage";
+
 
 
 
@@ -13,10 +13,8 @@ export default class AppRoute extends React.Component{
         return(
             <Router history={createBrowserHistory}>
                 <Switch>
-                    <Route exact path="/" component={Login}/>
                     <Route exact path="/CustomerMenu" component={CustomerMenu} />
-                    <Route exact path="/CustomerManage" component={CustomerMenu}/>
-                    <Route exact path="/PaperManage" component={CustomerMenu}/>
+                    <Route path="/*" component={Login}/>
                 </Switch>
             </Router>
         )

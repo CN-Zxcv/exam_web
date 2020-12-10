@@ -27,7 +27,7 @@ axios.interceptors.response.use(
         let res = data.data
         if (res.msgCode === '0') {
             if(data.config.url === '/login/login'){
-                let inFifteenMinutes = new Date(new Date().getTime() + 24 * 3600 * 1000);//一天
+                let inFifteenMinutes = new Date(new Date().getTime() + 2 * 3600 * 1000);//2小时
                 cookie.save("authorization", res.returnContent.token,{ expires: inFifteenMinutes });
             }
             return Promise.resolve(res.returnContent);

@@ -18,6 +18,10 @@ class Login extends Component {
 
     componentDidMount() {
         document.title = '登录'
+        const authorization = cookie.load("authorization")
+        if(authorization){
+            this.props.history.replace('CustomerMenu')
+        }
     }
 
     handleSubmit = e => {
@@ -27,8 +31,9 @@ class Login extends Component {
             (res) => {
                 console.log(res)
                 this.setState({loading: false})
-                global.name = res.name;
-                global.employCode = res.employCode;
+                let inFifteenMinutes = new Date(new Date().getTime() + 2 * 3600 * 1000);//2小时
+                cookie.save("name", res.name, { expires: inFifteenMinutes });
+                cookie.save("employCode", res.employCode, { expires: inFifteenMinutes });
                 this.props.history.replace('CustomerMenu')
             },
             () => {

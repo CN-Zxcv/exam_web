@@ -1,11 +1,15 @@
 import React, {Component} from "react";
 import '../css/CustomerMenu.css';
 import {getMenus} from "../utils/api";
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import {Layout, Menu, Spin, Icon, Dropdown, message} from 'antd';
 import CustomerManage from "./CustomerManage";
 import PaperManage from "./PaperManage";
+import NotFound from "./NotFound";
+import cookie from "react-cookies";
 
+const name = cookie.load("name")
+const employCode = cookie.load("employCode")
 const { SubMenu } = Menu;
 const {Content, Footer, Sider} = Layout;
 const menu = (
@@ -38,7 +42,7 @@ export class CustomerMenu extends Component {
         this.state = {
             loading: true,
             menuList: [],
-            theme: 'green',
+            theme: 'light',
             current: '0',
             defaultOpen: '0',
             current_icon: 'home',
@@ -49,7 +53,7 @@ export class CustomerMenu extends Component {
 
     componentDidMount() {
         document.title = '欢迎';
-        getMenus({employCode: global.employCode, menuType: "2"}).then(
+        getMenus({menuType: "2"}).then(
             (res) => {
                 if(res != null && res.length > 0){
                     this.setState({
@@ -130,7 +134,7 @@ export class CustomerMenu extends Component {
                             >
                                 {subMenus.map((sub, subIndex) => {
                                    return <Menu.Item key={sub.id}>
-                                        <Link to={sub.className}>
+                                        <Link to={sub.className} replace>
                                             <Icon type={sub.icon ? sub.icon : "file" }/>
                                             <span>{sub.name}</span>
                                         </Link>
@@ -143,7 +147,7 @@ export class CustomerMenu extends Component {
                     } else {
                         return (
                             <Menu.Item key={s.id}>
-                                <Link to={s.className}>
+                                <Link to={s.className} replace>
                                     <Icon type={s.icon ? s.icon : "home" }/>
                                     <span>{s.name}</span>
                                 </Link>
@@ -170,7 +174,8 @@ export class CustomerMenu extends Component {
                     <Sider className="sider"
                            collapsible collapsed={this.state.collapsed}
                            onCollapse={this.onCollapse}
-                           width={180}
+                           width={160}
+                           theme={this.state.theme}
                     >
                         <div className="logo">
                             <Icon type="profile" style={{
@@ -178,26 +183,29 @@ export class CustomerMenu extends Component {
                             display: this.state.collapsed ? 'none' : 'block'
                         }}/>
                             <span className="logo-text" style={{
-                                fontSize: this.state.collapsed ? 10 : 15,
+                                fontSize: this.state.collapsed ? 10 : 14,
                                 marginLeft:  this.state.collapsed ? -5 : 5
                             }}>平煤考试系统</span>
                         </div>
                         {this.menuList(menuList)}
                     </Sider>
-                    <div className="layout" style={{marginLeft: collapsed? 80 :180}}>
+                    <div className="layout" style={{marginLeft: collapsed? 80 :160}}>
                         <div className="header">
                             <div className="crumb"><Icon type={current_icon ? current_icon : "home" }/> {current_name}</div>
-                            <Dropdown.Button overlay={menu} icon={<Icon type="user"/>}
-                                             onClick={this.handleUserClick}>
-                                {global.name}
-                            </Dropdown.Button>
+                            <div className="button-head">
+                                <Dropdown.Button overlay={menu} icon={<Icon type="user"/>}
+                                                 onClick={this.handleUserClick}>
+                                    {name}
+                                </Dropdown.Button>
+                            </div>
                         </div>
 
                         <div className="content">
-
-                            <Route exact key="1" path="/CustomerManage" component={CustomerManage}/>
-                            <Route exact key="2" path="/PaperManage" component={PaperManage}/>
-
+                            <Switch>
+                                <Route exact key="1" path="/CustomerManage" component={CustomerManage}/>
+                                <Route exact key="2" path="/PaperManage" component={PaperManage}/>
+                                <Route path="/*" component={NotFound}/>
+                            </Switch>
                         </div>
                         <div className="footer">EXAM ©2020 Created by HRN</div>
                     </div>

@@ -1,5 +1,4 @@
 .root {
-    display: flex;
 }
 
 .loading {
@@ -10,8 +9,8 @@
 }
 
 .logo {
-    height: 5vh;
-    background: rgba(255, 255, 255, 0.2);
+    height: 40px;
+    background: #1890ff;
     display: flex;
     justify-content: left;
     align-items: center;
@@ -31,21 +30,25 @@
 }
 
 .menu {
-    height: 100%;
+    height: 100vh;
+    overflow: scroll;
+    padding-bottom: 34px;
+}
+/*滚动条样式*/
+.menu::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 0px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 0px;
 }
 
 .header {
     width: 100%;
     background: white;
-    height: 50px;
+    height: 40px;
     display: flex;
-    justify-content: right;
-    text-align: right;
     align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
     position: fixed;
     z-index: 1;
+    border-bottom: #c8c8c8 1px solid;
 }
 
 .icon-head {
@@ -55,23 +58,24 @@
 }
 
 .button-head {
-
+    position: fixed;
+    right: 0;
+    padding-right: 10px;
 }
 
 .crumb {
-    width: 80%;
     text-align: left;
     padding-left: 10px;
 }
 
 .content {
-    margin-top: 53px;
-    height: 100%;
     width: 100%;
+    margin-top: 41px;
+    margin-bottom: 40px;
 }
 
 .route {
-    height: 100%;
+    height: 100vh;
     margin: 10px;
     background: white;
 }
@@ -86,17 +90,28 @@
     transition: all 0.2s linear 0s;
     width: 100%;
     height: 100%;
+    background-color: white;
 }
 
 .footer {
+    width: 100%;
     text-align: center;
-    height: 5%;
-    z-index: 2;
+    height: 30px;
+    line-height: 30px;
+    padding-right: 80px;
+    position: fixed;
+    bottom: 0;
+    background-color: #f8f8f8;
 }
 
 
 .title {
 
+}
+
+.ant-layout-sider-trigger {
+    height: 30px;
+    line-height: 30px;
 }
 
 
