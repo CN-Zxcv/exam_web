@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Input, Button, Icon, message} from 'antd';
 import '../css/Login.css';
 import logo from "../res/logo.svg";
+import app_down from "../res/app_download.png";
 import {login} from "../utils/api";
 import cookie from 'react-cookies'
 
@@ -52,6 +53,10 @@ class Login extends Component {
         const {employCode, passWord, loading} = this.state;
         return (
             <div className="App">
+                <a className="App-down" href="https://hrn-files.oss-cn-beijing.aliyuncs.com/app/internalExam-1.0.4.apk"
+                   style={{color: "#1890ff", fontSize: 12}}>
+                    下载APP
+                </a>
                 <div className="App-header">
                     <img src={logo} className="App-logo" alt="logo"/>
                     <Input

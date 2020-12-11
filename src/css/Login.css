@@ -9,6 +9,20 @@
   margin-bottom: 2vh;
 }
 
+.App-down {
+  align-items: center;
+  display: flex;
+  height: 30px;
+  position: fixed;
+  right: 14px;
+  top: 0;
+  background-image:url(../res/app_download_small.png);
+  background-repeat: no-repeat;
+  background-size: 12px;
+  background-position: left center;
+  padding-left: 13px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
