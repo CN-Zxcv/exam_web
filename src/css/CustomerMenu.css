@@ -48,7 +48,7 @@
     align-items: center;
     position: fixed;
     z-index: 1;
-    border-bottom: #c8c8c8 1px solid;
+    border-bottom: #e8e8e8 1px solid;
 }
 
 .icon-head {
@@ -112,6 +112,11 @@
 .ant-layout-sider-trigger {
     height: 30px;
     line-height: 30px;
+}
+
+.ant-layout-sider-light .ant-layout-sider-trigger{
+    background-color: #1890ff;
+    color: white;
 }
 
 
