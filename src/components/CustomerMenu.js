@@ -202,10 +202,6 @@ export class CustomerMenu extends Component {
             message.info("确认密码不能为空")
             return
         }
-        if(originPassword === newPassword){
-            message.info("新旧密码不能相同")
-            return
-        }
         if(confirmPassword !== newPassword){
             message.info("新密码与确认密码不一致")
             return
