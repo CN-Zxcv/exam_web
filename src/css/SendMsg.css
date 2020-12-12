@@ -1,6 +1,5 @@
-.content {
-    min-height: 94vh;
-    width: 30vh;
+.content-msg {
+    width: 40vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,4 +8,5 @@
     color: #009ad6;
     margin-left: auto;
     margin-right: auto;
+    padding-top: 50px;
 }

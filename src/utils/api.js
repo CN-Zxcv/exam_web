@@ -52,9 +52,38 @@ function sendMsg(param){
     })
 }
 
+/**
+ * 修改密码
+ */
+function changePassword(param){
+    return new Promise((resolve, reject) => {
+        http("post",'/common/changepassword', param).then(res => {
+            resolve (res);
+        },error => {
+            reject(error)
+        })
+    })
+}
+
+/**
+ * 用户信息
+ */
+function customerInfo(param){
+    return new Promise((resolve, reject) => {
+        http("post",'/common/customerinfo', param).then(res => {
+            resolve (res);
+        },error => {
+            reject(error)
+        })
+    })
+}
+
+
 export {
     login,
     getMenus,
     getCustomers,
-    sendMsg
+    sendMsg,
+    changePassword,
+    customerInfo
 }

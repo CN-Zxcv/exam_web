@@ -1,16 +1,17 @@
 import React, {Component} from "react";
 import '../css/CustomerMenu.css';
-import {getMenus} from "../utils/api";
+import {changePassword, getMenus} from "../utils/api";
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
-import {Layout, Menu, Spin, Icon, Dropdown, message} from 'antd';
+import {Layout, Menu, Spin, Icon, Dropdown, message, Modal, Input} from 'antd';
 import CustomerManage from "./CustomerManage";
 import PaperManage from "./PaperManage";
 import NotFound from "./NotFound";
 import cookie from "react-cookies";
 import {SendMsg} from "./SendMsg";
+import CustomerInfo from "./CustomerInfo";
 
 const { SubMenu } = Menu;
-const {Content, Footer, Sider} = Layout;
+const {Sider} = Layout;
 export class CustomerMenu extends Component {
 
     constructor(props) {
@@ -24,6 +25,11 @@ export class CustomerMenu extends Component {
             current_icon: 'home',
             current_name: 'home',
             collapsed: false,
+            visible: false,
+            originPassword : "",
+            newPassword: "",
+            confirmPassword: "",
+            confirmLoading: false
         };
     }
 
@@ -44,9 +50,8 @@ export class CustomerMenu extends Component {
 
     handleUserMenuClick = (e) => {
         if (e.key === "1") {
-            message.info("修改密码");
+            this.showModal();
         } else {
-            message.info("退出登录");
             cookie.remove("name");
             cookie.remove("employCode");
             cookie.remove("authorization");
@@ -127,7 +132,8 @@ export class CustomerMenu extends Component {
                 mode="inline"
                 theme={this.state.theme}
                 selectedKeys={[this.state.current]}
-                defaultOpenKeys={['7']}
+                defaultOpenKeys={[this.state.defaultOpen]}
+                defaultSelectedKeys={[this.state.current]}
                 onClick={this.handleClick}
             >
 
@@ -165,12 +171,67 @@ export class CustomerMenu extends Component {
                 })}
             </Menu>
         )
-
     }
 
+    showModal = () => {
+        this.setState({
+            visible: true,
+            originPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+        });
+    };
+
+    hideModal = () => {
+        this.setState({
+            visible: false,
+        });
+    };
+
+    onPassWordChange = () => {
+        const {originPassword, newPassword, confirmPassword} = this.state
+        if(originPassword === ""){
+            message.info("原密码不能为空")
+            return
+        }
+        if(newPassword === ""){
+            message.info("新密码不能为空")
+            return
+        }
+        if(confirmPassword === ""){
+            message.info("确认密码不能为空")
+            return
+        }
+        if(originPassword === newPassword){
+            message.info("新旧密码不能相同")
+            return
+        }
+        if(confirmPassword !== newPassword){
+            message.info("新密码与确认密码不一致")
+            return
+        }
+        this.setState({confirmLoading: true})
+        changePassword({originPassword, newPassword, confirmPassword}).then(
+            (res) => {
+                this.hideModal()
+                this.setState({confirmLoading: false})
+                message.info("修改成功，请重新登录！")
+                cookie.remove("name");
+                cookie.remove("employCode");
+                cookie.remove("authorization");
+                this.props.history.replace('/')
+            },
+            (error) => {
+                this.setState({confirmLoading: false})
+                if(error === 'E90001'){
+                    this.props.history.replace('/')
+                }
+            }
+        );
+    };
 
     render() {
-        const {loading, menuList, current_icon, current_name, collapsed} = this.state
+        const {loading, menuList, current_icon, current_name, collapsed, originPassword, newPassword, confirmPassword, confirmLoading} = this.state
 
         if (loading) {
             return <Spin size="large" tip="Loading...">
@@ -213,12 +274,60 @@ export class CustomerMenu extends Component {
                                 <Route exact key="1" path="/CustomerManage" component={CustomerManage}/>
                                 <Route exact key="2" path="/PaperManage" component={PaperManage}/>
                                 <Route exact key="3" path="/SendMsg" component={SendMsg}/>
+                                <Route exact key="4" path="/CustomerInfo" component={CustomerInfo}/>
                                 <Route path="/*" component={NotFound}/>
                             </Switch>
                         </div>
                         <div className="footer">EXAM ©2020 Created by HRN</div>
                     </div>
                 </Layout>
+
+                <Modal
+                    title="修改密码"
+                    visible={this.state.visible}
+                    onOk={this.onPassWordChange}
+                    onCancel={this.hideModal}
+                    okText="修改"
+                    cancelText="取消"
+                    width={350}
+                    confirmLoading = {confirmLoading}
+                >
+                    <Input
+                        type="password"
+                        disabled={loading}
+                        placeholder="请输入原密码"
+                        maxLength={16}
+                        allowClear
+                        prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.30)'}}/>}
+                        value={originPassword}
+                        onChange={(e) => this.setState({originPassword: e.currentTarget.value})}
+                        style={{color: "#555555", fontSize: 14}}
+                    />
+
+                    <Input
+                        type="password"
+                        disabled={loading}
+                        placeholder="请输入新密码"
+                        maxLength={16}
+                        allowClear
+                        prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.30)'}}/>}
+                        value={newPassword}
+                        onChange={(e) => this.setState({newPassword: e.currentTarget.value})}
+                        style={{color: "#555555", fontSize: 14, marginTop: 15}}
+                    />
+
+                    <Input
+                        type="password"
+                        disabled={loading}
+                        maxLength={16}
+                        placeholder="请再次输入新密码"
+                        allowClear
+                        prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.30)'}}/>}
+                        value={confirmPassword}
+                        onChange={(e) => this.setState({confirmPassword: e.currentTarget.value})}
+                        style={{color: "#555555", fontSize: 14, marginTop: 15}}
+                    />
+                </Modal>
             </Router>
         }
     }
