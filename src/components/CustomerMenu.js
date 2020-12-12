@@ -118,7 +118,7 @@ export class CustomerMenu extends Component {
             current_icon: curMenu.icon,
             current_name: curMenu.name
         });
-        console.log(e)
+        console.log("click" + e)
     };
 
     handleUserClick = e => {

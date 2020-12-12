@@ -38,7 +38,7 @@ export default class CustomerManage extends Component{
                 >
                     <Descriptions.Item label="姓名：" span={2}>{customer.name}</Descriptions.Item>
                     <Descriptions.Item label="工号：" span={2}>{customer.employCode}</Descriptions.Item>
-                    <Descriptions.Item label="类型：" span={2}>{customer.typeDes}</Descriptions.Item>
+                    <Descriptions.Item label="类型：" span={2}>{customer.typeDesc}</Descriptions.Item>
                     <Descriptions.Item label="车间：" span={2}>{customer.workshop}</Descriptions.Item>
                     <Descriptions.Item label="岗位：" span={2}>{customer.job}</Descriptions.Item>
                 </Descriptions>
