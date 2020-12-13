@@ -3,11 +3,6 @@ import {BrowserRouter as Router , Route , Switch} from 'react-router-dom'
 import { createBrowserHistory } from "history";
 import Login from "./components/Login";
 import {CustomerMenu} from "./components/CustomerMenu";
-import CustomerManage from "./components/CustomerManage";
-import NotFound from "./components/NotFound";
-
-
-
 
 export default class AppRoute extends React.Component{
     render(){
