@@ -33,14 +33,14 @@ export default class CustomerManage extends Component{
             <div className="content-info">
                 <Descriptions
                     title="我的信息"
-                    column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
+                    column={{ xxl: 2, xl: 1, lg: 3, md: 3, sm: 2, xs: 1 }}
                     bordered
                 >
-                    <Descriptions.Item label="姓名：" span={2}>{customer.name}</Descriptions.Item>
-                    <Descriptions.Item label="工号：" span={2}>{customer.employCode}</Descriptions.Item>
-                    <Descriptions.Item label="类型：" span={2}>{customer.typeDesc}</Descriptions.Item>
-                    <Descriptions.Item label="车间：" span={2}>{customer.workshop}</Descriptions.Item>
-                    <Descriptions.Item label="岗位：" span={2}>{customer.job}</Descriptions.Item>
+                    <Descriptions.Item label="姓名" span={1}>{customer.name}</Descriptions.Item>
+                    <Descriptions.Item label="工号" span={2}>{customer.employCode}</Descriptions.Item>
+                    <Descriptions.Item label="类型" span={2}>{customer.typeDesc}</Descriptions.Item>
+                    <Descriptions.Item label="车间" span={2}>{customer.workshop}</Descriptions.Item>
+                    <Descriptions.Item label="岗位" span={2}>{customer.job}</Descriptions.Item>
                 </Descriptions>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {message} from 'antd';
 import cookie from 'react-cookies'
+import router from "../router";
 axios.defaults.timeout = 10000;
 axios.defaults.baseURL = "https://www.hrn.net.cn/api";
 /**
@@ -121,34 +122,45 @@ export default function http(type, url, param) {
 
 //失败提示
 function msg(err) {
-    if (err && err.response) {
-        switch (err.response.status) {
-            case 401:
-                message.info("未授权，请登录")
-                console.log("未授权，请登录");
-                break;
-            case 403:
-                message.info("拒绝访问")
-                console.log("拒绝访问");
-                break;
+    if (err) {
+        if(err.response){
+            switch (err.response.status) {
+                case 401:
+                    message.info("未授权，请登录")
+                    console.log("未授权，请登录");
+                    cookie.remove("name");
+                    cookie.remove("employCode");
+                    cookie.remove("authorization");
+                    setTimeout( () => {
+                    window.open("/")
+                },500)
+                    break;
 
-            case 404:
-                message.info("请求地址出错")
-                console.log("请求地址出错");
-                break;
-            case 408:
-                alert("请求超时");
-                break;
+                case 505:
+                    message.info("登录已失效")
+                    console.log("登录已失效");
+                    cookie.remove("name");
+                    cookie.remove("employCode");
+                    cookie.remove("authorization");
+                    setTimeout( () => {
+                        window.open("/")
+                    },500)
+                    break;
 
-            case 500:
-                message.info("服务器内部错误")
-                console.log("服务器内部错误");
-                break;
+                case 600:
+                    message.info("权限不足")
+                    console.log("权限不足");
+                    break;
 
-            default:
-                message.info("服务器连接失败")
-                console.log("服务器连接失败");
-                break;
+                default:
+                    message.info("服务器连接失败")
+                    console.log("服务器连接失败");
+                    break;
+            }
+        } else {
+            err.response.status = 500
+            message.info("服务器连接失败")
+            console.log("服务器连接失败");
         }
     }
 }

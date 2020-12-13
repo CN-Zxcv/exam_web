@@ -4,6 +4,7 @@ import { createBrowserHistory } from "history";
 import Login from "./components/Login";
 import {CustomerMenu} from "./components/CustomerMenu";
 import CustomerManage from "./components/CustomerManage";
+import NotFound from "./components/NotFound";
 
 
 

@@ -9,6 +9,7 @@ import NotFound from "./NotFound";
 import cookie from "react-cookies";
 import {SendMsg} from "./SendMsg";
 import CustomerInfo from "./CustomerInfo";
+import router from "../router";
 
 const { SubMenu } = Menu;
 const {Sider} = Layout;
@@ -21,6 +22,7 @@ export class CustomerMenu extends Component {
             menuList: [],
             theme: 'light',
             current: '0',
+            firstLink: '0',
             defaultOpen: '0',
             current_icon: 'home',
             current_name: 'home',
@@ -73,14 +75,18 @@ export class CustomerMenu extends Component {
                         this.setState({
                             current: res[0].subMenus[0].id + "",
                             current_icon: res[0].subMenus[0].icon,
-                            current_name: res[0].subMenus[0].name
+                            current_name: res[0].subMenus[0].name,
+                            firstLink : res[0].subMenus[0].id + "",
                         });
+                        //this.props.history.push(res[0].subMenus[0].className)
                     } else {
                         this.setState({
                             current: res[0].id + "",
                             current_icon: res[0].icon,
-                            current_name: res[0].name
+                            current_name: res[0].name,
+                            firstLink : res[0].id + "",
                         });
+                       // router.props.history.replace(res[0].className)
                     }
                 }
                 this.setState({loading: false, menuList: res})
@@ -125,15 +131,26 @@ export class CustomerMenu extends Component {
         message.info("个人信息");
     };
 
+    clickCurLink = el => {
+        if(el){
+            el.click()
+        }
+    }
+
+    clickOtherLink = el => {
+
+    }
+
     menuList = (menus) => {
+        const {current, firstLink} = this.state
         return (
             <Menu
                 className="menu"
                 mode="inline"
                 theme={this.state.theme}
-                selectedKeys={[this.state.current]}
+                selectedKeys={[current]}
                 defaultOpenKeys={[this.state.defaultOpen]}
-                defaultSelectedKeys={[this.state.current]}
+                defaultSelectedKeys={[current]}
                 onClick={this.handleClick}
             >
 
@@ -148,7 +165,7 @@ export class CustomerMenu extends Component {
                             >
                                 {subMenus.map((sub, subIndex) => {
                                    return <Menu.Item key={sub.id}>
-                                        <Link to={sub.className} replace>
+                                        <Link to={sub.className} replace ref={firstLink === sub.id + "" ? this.clickCurLink : this.clickOtherLink }>
                                             <Icon type={sub.icon ? sub.icon : "file" }/>
                                             <span>{sub.name}</span>
                                         </Link>
@@ -161,7 +178,7 @@ export class CustomerMenu extends Component {
                     } else {
                         return (
                             <Menu.Item key={s.id}>
-                                <Link to={s.className} replace>
+                                <Link to={s.className} replace ref={firstLink === s.id + "" ? this.clickCurLink : this.clickOtherLink }>
                                     <Icon type={s.icon ? s.icon : "home" }/>
                                     <span>{s.name}</span>
                                 </Link>
